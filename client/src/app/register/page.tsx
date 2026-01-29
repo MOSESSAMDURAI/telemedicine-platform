@@ -91,7 +91,7 @@ export default function RegisterPage() {
                             name="role"
                             value={formData.role}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black font-medium"
                         >
                             <option value="PATIENT">Patient</option>
                             <option value="AGENT">Village Health Agent</option>
@@ -105,7 +105,7 @@ export default function RegisterPage() {
                             name="language"
                             value={formData.language}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none text-black font-medium"
                         >
                             <option value="en">English</option>
                             <option value="ta">Tamil (தமிழ்)</option>
