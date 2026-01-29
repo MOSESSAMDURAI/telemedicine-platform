@@ -1,0 +1,91 @@
+
+> client@0.1.0 lint
+> eslint
+
+
+D:\Telemedicine N1\client\src\app\consultation\[id]\page.tsx
+  39:25  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Telemedicine N1\client\src\app\consultation\[id]\page.tsx:39:25
+  37 |
+  38 |     useEffect(() => {
+> 39 |         if (user && id) fetchDetails();
+     |                         ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  40 |     }, [user, id]);
+  41 |
+  42 |     if (!consultation) return <div className="p-8 text-center">Loading consultation details...</div>;  react-hooks/set-state-in-effect
+  40:8   warning  React Hook useEffect has a missing dependency: 'fetchDetails'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\app\dashboard\agent\page.tsx
+   3:20  warning  'useEffect' is defined but never used             @typescript-eslint/no-unused-vars
+  18:12  warning  'patients' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  18:22  warning  'setPatients' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\Telemedicine N1\client\src\app\dashboard\doctor\page.tsx
+  37:19  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Telemedicine N1\client\src\app\dashboard\doctor\page.tsx:37:19
+  35 |
+  36 |     useEffect(() => {
+> 37 |         if (user) fetchQueue();
+     |                   ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  38 |     }, [user]);
+  39 |
+  40 |     // Prioritize Emergency  react-hooks/set-state-in-effect
+  38:8   warning  React Hook useEffect has a missing dependency: 'fetchQueue'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\app\dashboard\patient\page.tsx
+  26:11  warning  'router' is assigned a value but never used                                                                            @typescript-eslint/no-unused-vars
+  30:8   warning  React Hook useEffect has a missing dependency: 'fetchConsultations'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\components\ChatWindow.tsx
+  40:9  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Telemedicine N1\client\src\components\ChatWindow.tsx:40:9
+  38 |
+  39 |     useEffect(() => {
+> 40 |         fetchMessages();
+     |         ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  41 |         const interval = setInterval(fetchMessages, 5000); // Polling every 5s
+  42 |         return () => clearInterval(interval);
+  43 |     }, [consultationId]);  react-hooks/set-state-in-effect
+  43:8  warning  React Hook useEffect has a missing dependency: 'fetchMessages'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\context\AuthContext.tsx
+  32:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Telemedicine N1\client\src\context\AuthContext.tsx:32:13
+  30 |         const storedUser = localStorage.getItem('user');
+  31 |         if (storedUser) {
+> 32 |             setUser(JSON.parse(storedUser));
+     |             ^^^^^^^ Avoid calling setState() directly within an effect
+  33 |         }
+  34 |         setLoading(false);
+  35 |     }, []);  react-hooks/set-state-in-effect
+
+✖ 12 problems (4 errors, 8 warnings)
+

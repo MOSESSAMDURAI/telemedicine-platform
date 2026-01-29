@@ -1,0 +1,142 @@
+
+> client@0.1.0 lint
+> eslint
+
+
+D:\Telemedicine N1\client\src\app\consultation\[id]\page.tsx
+  26:25  error    Error: Cannot access variable before it is declared
+
+`fetchDetails` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\Telemedicine N1\client\src\app\consultation\[id]\page.tsx:26:25
+  24 |
+  25 |     useEffect(() => {
+> 26 |         if (user && id) fetchDetails();
+     |                         ^^^^^^^^^^^^ `fetchDetails` accessed before it is declared
+  27 |     }, [user, id]);
+  28 |
+  29 |     const fetchDetails = async () => {
+
+D:\Telemedicine N1\client\src\app\consultation\[id]\page.tsx:29:5
+  27 |     }, [user, id]);
+  28 |
+> 29 |     const fetchDetails = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 30 |         try {
+     | ^^^^^^^^^^^^^
+> 31 |             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+     …
+     | ^^^^^^^^^^^^^
+> 39 |         }
+     | ^^^^^^^^^^^^^
+> 40 |     };
+     | ^^^^^^^ `fetchDetails` is declared here
+  41 |
+  42 |     if (!consultation) return <div className="p-8 text-center">Loading consultation details...</div>;
+  43 |  react-hooks/immutability
+  27:8   warning  React Hook useEffect has a missing dependency: 'fetchDetails'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\app\dashboard\agent\page.tsx
+   3:20  warning  'useEffect' is defined but never used                            @typescript-eslint/no-unused-vars
+  18:12  warning  'patients' is assigned a value but never used                    @typescript-eslint/no-unused-vars
+  18:22  warning  'setPatients' is assigned a value but never used                 @typescript-eslint/no-unused-vars
+  94:33  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  94:46  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+D:\Telemedicine N1\client\src\app\dashboard\doctor\page.tsx
+  24:19  error    Error: Cannot access variable before it is declared
+
+`fetchQueue` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\Telemedicine N1\client\src\app\dashboard\doctor\page.tsx:24:19
+  22 |
+  23 |     useEffect(() => {
+> 24 |         if (user) fetchQueue();
+     |                   ^^^^^^^^^^ `fetchQueue` accessed before it is declared
+  25 |     }, [user]);
+  26 |
+  27 |     const fetchQueue = async () => {
+
+D:\Telemedicine N1\client\src\app\dashboard\doctor\page.tsx:27:5
+  25 |     }, [user]);
+  26 |
+> 27 |     const fetchQueue = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 28 |         try {
+     | ^^^^^^^^^^^^^
+> 29 |             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+     …
+     | ^^^^^^^^^^^^^
+> 37 |         }
+     | ^^^^^^^^^^^^^
+> 38 |     };
+     | ^^^^^^^ `fetchQueue` is declared here
+  39 |
+  40 |     // Prioritize Emergency
+  41 |     const sortedConsultations = [...consultations].sort((a, b) => {  react-hooks/immutability
+  25:8   warning  React Hook useEffect has a missing dependency: 'fetchQueue'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\app\dashboard\patient\page.tsx
+  26:11  warning  'router' is assigned a value but never used                                                                            @typescript-eslint/no-unused-vars
+  30:8   warning  React Hook useEffect has a missing dependency: 'fetchConsultations'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\app\login\page.tsx
+  39:23  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  72:24  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\Telemedicine N1\client\src\app\register\page.tsx
+  48:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\Telemedicine N1\client\src\components\ChatWindow.tsx
+  22:9  error    Error: Cannot access variable before it is declared
+
+`fetchMessages` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\Telemedicine N1\client\src\components\ChatWindow.tsx:22:9
+  20 |
+  21 |     useEffect(() => {
+> 22 |         fetchMessages();
+     |         ^^^^^^^^^^^^^ `fetchMessages` accessed before it is declared
+  23 |         const interval = setInterval(fetchMessages, 5000); // Polling every 5s
+  24 |         return () => clearInterval(interval);
+  25 |     }, [consultationId]);
+
+D:\Telemedicine N1\client\src\components\ChatWindow.tsx:27:5
+  25 |     }, [consultationId]);
+  26 |
+> 27 |     const fetchMessages = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 28 |         try {
+     | ^^^^^^^^^^^^^
+> 29 |             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+     …
+     | ^^^^^^^^^^^^^
+> 38 |         }
+     | ^^^^^^^^^^^^^
+> 39 |     };
+     | ^^^^^^^ `fetchMessages` is declared here
+  40 |
+  41 |     const scrollToBottom = () => {
+  42 |         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });  react-hooks/immutability
+  25:8  warning  React Hook useEffect has a missing dependency: 'fetchMessages'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/exhaustive-deps
+
+D:\Telemedicine N1\client\src\context\AuthContext.tsx
+  32:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\Telemedicine N1\client\src\context\AuthContext.tsx:32:13
+  30 |         const storedUser = localStorage.getItem('user');
+  31 |         if (storedUser) {
+> 32 |             setUser(JSON.parse(storedUser));
+     |             ^^^^^^^ Avoid calling setState() directly within an effect
+  33 |         }
+  34 |         setLoading(false);
+  35 |     }, []);  react-hooks/set-state-in-effect
+
+✖ 17 problems (9 errors, 8 warnings)
+
