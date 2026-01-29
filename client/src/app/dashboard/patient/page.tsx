@@ -82,7 +82,7 @@ export default function PatientDashboard() {
                 <Card title={t('symptoms')}>
                     <form onSubmit={handleCreateConsultation} className="flex flex-col gap-4">
                         <textarea
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 h-32"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 h-32 text-black font-medium"
                             placeholder="Describe your symptoms (e.g., chest pain, fever...)"
                             value={symptoms}
                             onChange={(e) => setSymptoms(e.target.value)}
@@ -111,7 +111,7 @@ export default function PatientDashboard() {
                                         {c.status}
                                     </span>
                                 </div>
-                                <p className="font-semibold mb-3 truncate">{c.symptoms.join(', ')}</p>
+                                <p className="font-semibold mb-3 truncate text-black">{c.symptoms.join(', ')}</p>
                                 <TriageResult status={c.aiTriageResult} />
                                 <Link href={`/consultation/${c._id}`}>
                                     <Button variant="secondary" size="sm" className="mt-3 w-full">
