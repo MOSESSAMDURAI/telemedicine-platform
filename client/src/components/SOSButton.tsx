@@ -14,12 +14,11 @@ export default function SOSButton() {
     const [loading, setLoading] = useState(false);
 
     const handleSOS = () => {
+        // 1. Trigger Call to 108 IMMEDIATELY (Browser requirement)
+        window.location.href = 'tel:108';
         setLoading(true);
 
         const sendAlert = async (lat?: number, lng?: number) => {
-            // 1. Trigger Call to 108
-            window.location.href = 'tel:108';
-
             // 2. Share Location (Save to Backend)
             if (user) {
                 try {
