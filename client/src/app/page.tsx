@@ -90,6 +90,15 @@ export default function Home() {
             </Link>
           </div>
 
+          <div className="mt-6 flex flex-col items-center sm:items-start">
+            <Link href="/hospitals" className="group flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-50 transition-all">
+              <span className="text-2xl group-hover:scale-110 transition-transform">🏥</span>
+              <span className="text-slate-600 font-bold border-b-2 border-transparent group-hover:text-blue-700 group-hover:border-blue-700 transition-all">
+                {language === 'en' ? 'Find Nearby Govt. Hospitals' : 'அருகிலுள்ள அரசு மருத்துவமனைகள்'}
+              </span>
+            </Link>
+          </div>
+
 
           {/* Stats Row */}
           <div className="flex gap-8 mt-12 border-t border-slate-100 pt-8">
