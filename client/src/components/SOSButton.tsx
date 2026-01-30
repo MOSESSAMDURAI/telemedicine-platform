@@ -11,19 +11,62 @@ export default function SOSButton() {
     const { user } = useAuth();
     const router = useRouter();
 
-    const handleSOS = () => {
-        // Determine where to redirect or what API to call
-        // For prototype, redirect to emergency consultation creation or trigger alert
-        // If not logged in, maybe redirect to login with emergency flag?
+    const [loading, setLoading] = useState(false);
 
-        // Simplest flow: Redirect to special emergency page or create emergency consultation
-        if (user) {
-            // Create emergency consultation API call (mocked here by redirect)
-            router.push('/dashboard/patient/emergency');
+    const handleSOS = () => {
+        setLoading(true);
+
+        const sendAlert = async (lat?: number, lng?: number) => {
+            // 1. Trigger Call to 108
+            window.location.href = 'tel:108';
+
+            // 2. Share Location (Save to Backend)
+            if (user) {
+                try {
+                    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+                    await fetch(`${apiUrl}/consultations`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${user.token}`
+                        },
+                        body: JSON.stringify({
+                            symptoms: ['SOS EMERGENCY'],
+                            details: lat ? `GPS Location: ${lat}, ${lng}` : 'GPS Location Unavailable',
+                            status: 'EMERGENCY',
+                            aiTriageResult: 'EMERGENCY'
+                        })
+                    });
+                    // Refresh data on dashboard
+                    router.refresh();
+                    router.push('/dashboard/patient');
+                } catch (error) {
+                    console.error('Failed to send SOS', error);
+                }
+            } else {
+                const params = lat ? `?emergency=true&lat=${lat}&lng=${lng}` : '?emergency=true';
+                router.push(`/login${params}`);
+            }
+            setShowConfirm(false);
+            setLoading(false);
+        };
+
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    sendAlert(latitude, longitude);
+                },
+                (error) => {
+                    console.error('Location Access Denied or Error:', error);
+                    sendAlert(); // Proceed even if location fails
+                },
+                { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+            );
         } else {
-            router.push('/login?emergency=true');
+            console.warn('Geolocation not supported');
+            sendAlert();
         }
-        setShowConfirm(false);
     };
 
     return (
@@ -47,9 +90,10 @@ export default function SOSButton() {
                         <div className="flex flex-col gap-3">
                             <button
                                 onClick={handleSOS}
-                                className="w-full bg-red-600 text-white font-bold py-3 rounded-lg text-xl hover:bg-red-700"
+                                disabled={loading}
+                                className={`w-full bg-red-600 text-white font-bold py-3 rounded-lg text-xl hover:bg-red-700 transition-all ${loading ? 'opacity-70 cursor-wait' : ''}`}
                             >
-                                YES, I NEED HELP
+                                {loading ? 'LOCATING...' : 'YES, I NEED HELP'}
                             </button>
                             <button
                                 onClick={() => setShowConfirm(false)}
